@@ -1,0 +1,26 @@
+{% extends 'blog/index.html' %}
+{% block title %}Inicio - Blog Técnico{% endblock %}
+{% block content %}
+<h2>Últimos artículos</h2>
+<div class="row">
+    {% for articulo in articulos %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ articulo.titulo }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Categoría: {{ articulo.categoria }}</h6>
+                    <p class="card-text">{{ articulo.contenido|truncatechars:120 }}</p>
+                    <p class="card-text"><small class="text-muted">Autor: {{ articulo.autor }} | Fecha: {{ articulo.fecha|date:'d/m/Y H:i' }}</small></p>
+                    {% if articulo.tags %}
+                        <span class="badge bg-info">Dificultad: {{ articulo.get_tags_display }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-warning">No hay artículos publicados aún.</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

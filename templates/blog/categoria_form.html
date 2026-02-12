@@ -1,0 +1,20 @@
+{% extends 'blog/index.html' %}
+{% load widget_tweaks %}
+{% block title %}Nueva Categoría{% endblock %}
+{% block content %}
+<h2>Crear nueva categoría</h2>
+<form method="post" class="p-4 border rounded bg-light shadow-sm">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+            {{ field|add_class:'form-control' }}
+            {% if field.errors %}
+                <div class="text-danger">Debe completar este formulario.</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+{% endblock %}

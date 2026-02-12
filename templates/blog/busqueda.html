@@ -1,0 +1,32 @@
+{% extends 'blog/index.html' %}
+{% load widget_tweaks %}
+{% block title %}Buscar Artículo{% endblock %}
+{% block content %}
+<h2>Buscar artículo</h2>
+<form method="get" class="p-4 border rounded bg-light shadow-sm">
+    {{ form.non_field_errors }}
+    <div class="row mb-3">
+        <div class="col-md-6">
+            {{ form.consulta.label_tag }}
+            {{ form.consulta|add_class:'form-control' }}
+        </div>
+        <div class="col-md-6">
+            {{ form.categoria.label_tag }}
+            {{ form.categoria|add_class:'form-select' }}
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+{% if resultados %}
+    <h3 class="mt-4">Resultados</h3>
+    <ul class="list-group">
+        {% for articulo in resultados %}
+            <li class="list-group-item">
+                <strong>{{ articulo.titulo }}</strong> - {{ articulo.categoria }} - {{ articulo.autor }}
+            </li>
+        {% empty %}
+            <li class="list-group-item">No se encontraron artículos.</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
